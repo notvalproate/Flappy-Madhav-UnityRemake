@@ -4,34 +4,37 @@ using UnityEngine;
 
 public class PipeSpawnerScript : MonoBehaviour
 {
+    //Gameobject to instantiate pipes
     public GameObject Pipe;
+
+    //Spawn rate and the offset between which pipe's will spawn
     public float spawnRate;
     public float heightOffset;
-    private float Timer;
-    // Start is called before the first frame update
-    void Start()
-    {
-        spawnRate = 1.25f;
-        heightOffset = 2.5f;
-        spawnPipe();
-    }
+    //Timer initialized to a really high value so that Pipe appears as soon as game starts
+    private float Timer = 100;
 
-    // Update is called once per frame
     void Update()
     {
+        //When timer exceeds the spawnrate time, spawn a pipe and reset timer
         if(Timer >= spawnRate)
         {
             spawnPipe();
             Timer = 0;
             return;
         }
+        //Otherwise add time passed to the timer
         Timer += Time.deltaTime;
     }
 
     void spawnPipe()
     {
+        //Get the Y position of the new pipe
         float yPosition = Random.Range(-heightOffset, heightOffset);
+
+        //Create a new vector that will be assigned to the new pipe
         Vector3 newPos = new Vector3(transform.position.x, yPosition, transform.position.z);
+
+        //Instantiate a new pipe with that transform.position as newPos
         Instantiate(Pipe, newPos, transform.rotation);
     }
 }

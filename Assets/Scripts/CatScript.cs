@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class CatScript : MonoBehaviour
 {
+    private LevelScript Level;
     public Rigidbody2D rb;
-    public float jumpStrength;
-    public float gravityStrength;
 
-    // Start is called before the first frame update
     void Start()
     {
-        rb.gravityScale = gravityStrength;
+        //Get reference to the Level Script using the tag, and change the cat's RigidBody gravity strength
+        Level = GameObject.FindGameObjectWithTag("Level").GetComponent<LevelScript>();
+        rb.gravityScale = Level.gravityStrength;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //If either left-click, space, or up arrow is pressed, set the velocity to an upwards vector
         if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            rb.velocity = Vector3.up * jumpStrength;
+            rb.velocity = Vector3.up * Level.jumpStrength;
         }
     }
 }
