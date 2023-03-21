@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class PipeScript : MonoBehaviour
 {
+    public ScoreScript rs;
     public float pipeSpeed;
-    public float despawnX;
-    // Start is called before the first frame update
+    private float despawnX;
+    private bool Crossed = false;
+  
     void Start()
     {
+        rs = GameObject.FindGameObjectWithTag("ScoreTag").GetComponent<ScoreScript>();
         pipeSpeed = 4;
         despawnX = -11;
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.position += Vector3.left * pipeSpeed * Time.deltaTime;
@@ -21,6 +23,13 @@ public class PipeScript : MonoBehaviour
         if(transform.position.x < despawnX)
         {
             Destroy(gameObject);
+            return;
+        }
+
+        if (!Crossed && (transform.position.x < -0.90))
+        {
+            rs.Increment();
+            Crossed = true;
         }
     }
 }

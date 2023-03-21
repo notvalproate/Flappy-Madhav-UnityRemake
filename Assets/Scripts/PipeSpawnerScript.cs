@@ -11,8 +11,8 @@ public class PipeSpawnerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnRate = (float)1.25;
-        heightOffset = (float)2.5;
+        spawnRate = 1.25f;
+        heightOffset = 2.5f;
         spawnPipe();
     }
 
